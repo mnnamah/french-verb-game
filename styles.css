@@ -1,0 +1,566 @@
+/* =====================================================
+   FRENCH VERB QUIZ - STYLES
+   ===================================================== */
+
+/* =====================================================
+   BASE STYLES
+   ===================================================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #11162a;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* =====================================================
+   CARD CONTAINER
+   ===================================================== */
+.card {
+    max-width: 700px;
+    margin: auto;
+    background: #1b2038;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* =====================================================
+   TYPOGRAPHY
+   ===================================================== */
+h1, h2, h3 {
+    color: #5eb3f6;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+/* =====================================================
+   MENU SECTION STYLES
+   ===================================================== */
+.menu-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #2a2f45;
+}
+
+.menu-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.section-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #bbb;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   TOGGLE BUTTONS
+   ===================================================== */
+.toggle-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.toggle {
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.toggle.active {
+    background: #2d8640;
+    color: #fff;
+}
+
+.toggle.inactive {
+    background: #555;
+    color: #ccc;
+}
+
+.toggle:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.toggle:active {
+    transform: translateY(0);
+}
+
+/* =====================================================
+   INPUT STYLES
+   ===================================================== */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #5eb3f6;
+}
+
+input[type="text"]::placeholder {
+    color: #888;
+}
+
+/* =====================================================
+   SEARCH RESULT STYLES
+   ===================================================== */
+.search-result {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-result.found {
+    background: rgba(46, 134, 64, 0.2);
+    color: #4ade80;
+    border: 1px solid #2d8640;
+}
+
+.search-result.not-found {
+    background: rgba(181, 53, 53, 0.2);
+    color: #f87171;
+    border: 1px solid #b53535;
+}
+
+/* =====================================================
+   BUTTON STYLES
+   ===================================================== */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: #2d8640;
+    border-color: #2d8640;
+}
+
+.btn-primary:hover {
+    background: #369950;
+}
+
+.btn-secondary {
+    background: #444;
+    border-color: #555;
+}
+
+.btn-secondary:hover {
+    background: #555;
+}
+
+/* =====================================================
+   GAME SCREEN STYLES
+   ===================================================== */
+.meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.score {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+/* Timer Bar */
+.timer-bar-container {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.timer-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #2d8640, #4ade80);
+    transition: width 0.1s linear;
+    width: 100%;
+    border-radius: 4px;
+}
+
+/* Progress Bar (not used but keeping for compatibility) */
+.progress {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.progress > i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #2d8640, #4ade80);
+    transition: width 0.3s ease;
+}
+
+/* Question Display Area */
+.big {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.verb-word {
+    font-size: 48px;
+    font-weight: bold;
+    background: #222;
+    padding: 16px 32px;
+    border-radius: 8px;
+    color: #5eb3f6;
+    text-align: center;
+    min-width: 200px;
+}
+
+.question-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.question-text {
+    font-size: 28px;
+    background: #333;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+.tense-badge {
+    font-size: 14px;
+    font-weight: 600;
+    background: #333;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: #bbb;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+/* Answer Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.answer-btn {
+    background: #222;
+    color: #fff;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+    background: #333;
+    border-color: #5eb3f6;
+    transform: translateY(-2px);
+}
+
+.answer-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.answer-btn.correct {
+    background: #2d8640;
+    border-color: #2d8640;
+    color: #fff;
+}
+
+.answer-btn.wrong {
+    background: #b53535;
+    border-color: #b53535;
+    color: #fff;
+}
+
+.answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Feedback Section */
+.feedback {
+    margin-top: 16px;
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.feedback-msg {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.feedback-correct {
+    color: #4ade80;
+}
+
+.feedback-incorrect {
+    color: #f87171;
+}
+
+/* =====================================================
+   RESULTS SCREEN STYLES
+   ===================================================== */
+.final-score {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.final-score-value {
+    color: #4ade80;
+    font-weight: 800;
+}
+
+/* Leaderboard Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+th {
+    background: #222;
+    font-weight: 600;
+    color: #5eb3f6;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+td {
+    background: #1a1f35;
+}
+
+tr:hover td {
+    background: #252a42;
+}
+
+.improvement-positive {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.improvement-negative {
+    color: #f87171;
+    font-weight: bold;
+}
+
+/* =====================================================
+   LAST ROUNDS SECTION
+   ===================================================== */
+.round-item {
+    padding: 12px;
+    background: #222;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border-left: 3px solid #5eb3f6;
+}
+
+.round-item:last-child {
+    margin-bottom: 0;
+}
+
+.round-meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.round-stats {
+    font-size: 14px;
+}
+
+.round-stats strong {
+    color: #4ade80;
+}
+
+/* =====================================================
+   UTILITY CLASSES
+   ===================================================== */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 16px;
+    }
+    
+    .verb-word {
+        font-size: 36px;
+        padding: 12px 24px;
+    }
+    
+    .question-text {
+        font-size: 22px;
+        padding: 10px 16px;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .answer-btn {
+        padding: 14px;
+        font-size: 16px;
+    }
+    
+    .toggle {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 6px 4px;
+    }
+}
+
+/* =====================================================
+   SCROLLBAR STYLING
+   ===================================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1b2038;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

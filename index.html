@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Verb Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- =====================================================
+         MAIN MENU SCREEN
+         ===================================================== -->
+    <div id="mainMenu" class="card">
+        <h1 class="text-center mb-20">French Verb Quiz</h1>
+        
+        <!-- Verb Search Box -->
+        <div class="menu-section">
+            <label class="section-label">Search Verb (optional):</label>
+            <input type="text" id="verbSearch" placeholder="Type verb infinitive or conjugation...">
+            <div id="searchResult" class="search-result hidden"></div>
+        </div>
+
+        <!-- Game Mode Selection -->
+        <div class="menu-section">
+            <label class="section-label">Select Game Mode:</label>
+            <div class="toggle-container" id="modeToggles">
+                <button class="toggle active" data-mode="movement">Movement</button>
+                <button class="toggle inactive" data-mode="reflexive">Reflexive</button>
+                <button class="toggle inactive" data-mode="irregular">Irregular</button>
+                <button class="toggle inactive" data-mode="regular">Regular</button>
+            </div>
+        </div>
+
+        <!-- Tense Toggles -->
+        <div class="menu-section">
+            <label class="section-label">Select Tenses:</label>
+            <div class="toggle-container" id="tenseToggles"></div>
+        </div>
+
+        <!-- Pronoun Toggles -->
+        <div class="menu-section">
+            <label class="section-label">Select Pronouns:</label>
+            <div class="toggle-container" id="pronounToggles"></div>
+        </div>
+
+        <!-- COD/COI Toggles -->
+        <div class="menu-section">
+            <label class="section-label">Object Pronouns (optional):</label>
+            <div class="toggle-container" id="objectToggles">
+                <button class="toggle inactive" data-type="cod">COD</button>
+                <button class="toggle inactive" data-type="coi">COI</button>
+            </div>
+        </div>
+
+        <!-- Question Count Selection -->
+        <div class="menu-section">
+            <label class="section-label">Number of Questions:</label>
+            <div class="toggle-container" id="questionCountToggles">
+                <button class="toggle active" data-num="10">10</button>
+                <button class="toggle inactive" data-num="20">20</button>
+                <button class="toggle inactive" data-num="Infinity">∞</button>
+            </div>
+        </div>
+
+        <!-- Time Limit Selection -->
+        <div class="menu-section">
+            <label class="section-label">Time per Question (seconds):</label>
+            <div class="toggle-container" id="timeLimitToggles">
+                <button class="toggle active" data-time="10">10s</button>
+                <button class="toggle inactive" data-time="20">20s</button>
+                <button class="toggle inactive" data-time="Infinity">∞</button>
+            </div>
+        </div>
+
+        <!-- Start and Leaderboard Buttons -->
+        <div class="button-group">
+            <button id="startBtn" class="btn btn-primary">Start Quiz</button>
+            <button id="leaderboardBtn" class="btn btn-secondary">Leaderboard</button>
+        </div>
+
+        <!-- Last 5 Rounds Summary -->
+        <div id="lastRounds" class="menu-section">
+            <h3>Last 5 Rounds:</h3>
+            <div id="lastRoundsList"></div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         GAME SCREEN
+         ===================================================== -->
+    <div id="gameScreen" class="card hidden">
+        <!-- Timer Progress Bar -->
+        <div id="timerBarContainer" class="timer-bar-container">
+            <div id="timerBar" class="timer-bar"></div>
+        </div>
+        
+        <!-- Score and Progress -->
+        <div class="meta">
+            <div class="score">
+                <span id="correctCount">0</span> / <span id="totalCount">0</span>
+            </div>
+            <div style="font-size: 14px; color: #bbb;">
+                Question <span id="currentQ">1</span> of <span id="totalQ">10</span>
+            </div>
+        </div>
+
+        <!-- Main Question Display -->
+        <div class="big">
+            <div class="verb-word" id="verbDisplay">avoir</div>
+            <div class="question-container">
+                <div class="question-text" id="questionText">je _____</div>
+                <div class="tense-badge" id="tenseDisplay">Présent</div>
+            </div>
+        </div>
+
+        <!-- Answer Options -->
+        <div class="grid" id="answerGrid">
+            <button class="answer-btn">ai</button>
+            <button class="answer-btn">as</button>
+            <button class="answer-btn">a</button>
+            <button class="answer-btn">avons</button>
+        </div>
+
+        <!-- Feedback and Skip Button (shown after answer) -->
+        <div id="feedback" class="feedback hidden">
+            <div id="feedbackMsg" class="feedback-msg"></div>
+            <button id="skipBtn" class="btn btn-secondary">Next (5s)</button>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         RESULTS/LEADERBOARD SCREEN
+         ===================================================== -->
+    <div id="resultsScreen" class="card hidden">
+        <h2 class="text-center mb-20">Results</h2>
+        
+        <!-- Final Score (visible after quiz) -->
+        <div id="finalScoreSection" class="final-score hidden">
+            Score: <span id="finalScore" class="final-score-value">0</span> / <span id="finalTotal">0</span>
+        </div>
+
+        <!-- Leaderboard Toggles -->
+        <div class="menu-section">
+            <label class="section-label">Group By:</label>
+            <div class="toggle-container" id="leaderboardFilters">
+                <button class="toggle active" data-filter="tense">Tense</button>
+                <button class="toggle inactive" data-filter="verb">Verb</button>
+                <button class="toggle inactive" data-filter="pronoun">Pronoun</button>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <label class="section-label">Sort By:</label>
+            <div class="toggle-container" id="leaderboardSort">
+                <button class="toggle active" data-sort="improvement">Top 10 (Improvement)</button>
+                <button class="toggle inactive" data-sort="struggling">Bottom 10 (Struggling)</button>
+            </div>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div style="overflow-x: auto;">
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th id="objectHeader">Object(s)</th>
+                        <th>Avg Time (s)</th>
+                        <th>Improvement</th>
+                        <th>Correctness</th>
+                        <th>Attempts</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back to Menu Button -->
+        <button id="backToMenuBtn" class="btn btn-secondary mt-20">Back to Menu</button>
+    </div>
+
+    <!-- Load External Scripts -->
+    <script src="verb_library.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
