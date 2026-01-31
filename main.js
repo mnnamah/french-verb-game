@@ -500,6 +500,9 @@ function attachEventListeners() {
     // Start button
     document.getElementById('startBtn').addEventListener('click', startQuiz);
     
+    // Exit game button
+    document.getElementById('exitGameBtn').addEventListener('click', exitGame);
+    
     // Leaderboard button
     document.getElementById('leaderboardBtn').addEventListener('click', showLeaderboardFromMenu);
     
@@ -1121,6 +1124,30 @@ function showFeedback(isCorrect, timeSpent) {
     STATE.autoAdvanceTimeout = setTimeout(() => {
         nextQuestion();
     }, CORRECT_ANSWER_DELAY);
+}
+
+/**
+ * Exit current game and return to main menu
+ */
+function exitGame() {
+    // Clear any running timers
+    if (STATE.timerInterval) {
+        clearInterval(STATE.timerInterval);
+        STATE.timerInterval = null;
+    }
+    
+    // Reset game state
+    STATE.currentQuestion = null;
+    STATE.currentQuestionIndex = 0;
+    STATE.answeredCorrectly = false;
+    
+    // Show main menu, hide game screen
+    document.getElementById('gameScreen').classList.add('hidden');
+    document.getElementById('resultsScreen').classList.add('hidden');
+    document.getElementById('mainMenu').classList.remove('hidden');
+    
+    // Update last rounds display if any progress was made
+    renderLastRounds();
 }
 
 /**
