@@ -386,6 +386,7 @@ function renderTenseToggles() {
     
     Object.entries(TENSES).forEach(([key, tense]) => {
         const btn = document.createElement('button');
+        // Check if this tense is currently selected
         btn.className = STATE.selectedTenses.has(key) ? 'toggle active' : 'toggle inactive';
         btn.textContent = tense.label;
         btn.dataset.tense = key;
@@ -403,6 +404,7 @@ function renderPronounToggles() {
     
     PRONOUNS.forEach(pronoun => {
         const btn = document.createElement('button');
+        // Check if this pronoun is currently selected
         btn.className = STATE.selectedPronouns.has(pronoun.key) ? 'toggle active' : 'toggle inactive';
         btn.textContent = pronoun.label;
         btn.dataset.pronoun = pronoun.key;
@@ -662,15 +664,17 @@ function handleLeaderboardSortToggle(btn) {
  * Start a new quiz
  */
 function startQuiz() {
-    // Validate selections
+   // Auto-select all if none selected
     if (STATE.selectedTenses.size === 0) {
-        alert('Please select at least one tense!');
-        return;
+        // Select all available tenses
+        STATE.selectedTenses = new Set(Object.keys(TENSES));
+        renderTenseToggles(); // Update UI to show selections
     }
     
     if (STATE.selectedPronouns.size === 0) {
-        alert('Please select at least one pronoun!');
-        return;
+        // Select all available pronouns
+        STATE.selectedPronouns = new Set(PRONOUNS.map(p => p.key));
+        renderPronounToggles(); // Update UI to show selections
     }
     
     // Get available verbs
@@ -1115,7 +1119,7 @@ function showFeedback(isCorrect, timeSpent) {
     if (isCorrect) {
         feedbackMsg.innerHTML = `<span class="feedback-correct">✓ Correct!</span> (${timeSpent.toFixed(2)}s)`;
     } else {
-        feedbackMsg.innerHTML = `<span class="feedback-incorrect">✗ Incorrect!</span> Answer: <strong>${STATE.currentQuestion.correctAnswer}</strong>`;
+        feedbackMsg.innerHTML = `<span class="feedback-incorrect">✗ Incorrect!</span>`;
     }
     
     feedbackDiv.classList.remove('hidden');
@@ -1214,7 +1218,7 @@ function handleTimeout() {
     // Show feedback
     const feedbackDiv = document.getElementById('feedback');
     const feedbackMsg = document.getElementById('feedbackMsg');
-    feedbackMsg.innerHTML = `<span class="feedback-incorrect">⏱ Time's up!</span> Answer: <strong>${STATE.currentQuestion.correctAnswer}</strong>`;
+    feedbackMsg.innerHTML = `<span class="feedback-incorrect">⏱ Time's up!</span>`;
     feedbackDiv.classList.remove('hidden');
     
     // Auto-advance
